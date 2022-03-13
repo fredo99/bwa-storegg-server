@@ -1,7 +1,10 @@
 module.exports = {
     index: async(req, res) =>{
         try {
-            res.render('index');
+            const active = 'dashboard';
+            res.render('index', {
+                active
+            });
         } catch (err) {
             console.log(err);
         }

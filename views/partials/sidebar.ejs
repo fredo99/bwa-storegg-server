@@ -13,7 +13,11 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="/" class="nav-link">
+              <a href="/" class="nav-link
+              <% if(active == 'dashboard'){ %>
+                active
+                <% } %>
+                ">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Beranda
@@ -22,7 +26,11 @@
             </li>
           <li class="nav-header">Master</li>
           <li class="nav-item">
-            <a href="/category" class="nav-link">
+            <a href="/category" class="nav-link
+            <% if(active == 'category'){ %>
+              active
+              <% } %>
+              ">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Category
@@ -30,7 +38,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="/nominal" class="nav-link
+            <% if(active == 'nominal'){ %>
+              active
+              <% } %>
+              ">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Nominal
@@ -38,7 +50,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="/voucher" class="nav-link
+            <% if(active == 'voucher'){ %>
+              active
+              <% } %>
+              ">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Voucher
@@ -46,8 +62,12 @@
             </a>
           </li>
           <li class="nav-header">Metode Pembayaran</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+          <li class="nav-item
+          <% if(active == 'bank'){ %>
+            active
+            <% } %>
+            ">
+            <a href="/bank" class="nav-link">
               <i class="nav-icon fas fa-money-check"></i>
               <p>
                 Bank
