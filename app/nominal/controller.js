@@ -20,7 +20,8 @@ module.exports = {
     },
     viewCreate: async(req, res) =>{
         try {
-            res.render('admin/nominal/create');
+            const active = 'nominal'
+            res.render('admin/nominal/create', {active});
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
@@ -47,9 +48,11 @@ module.exports = {
     viewEdit: async(req, res) =>{
         try {
             const {id} = req.params
+            const active = 'nominal'
             let nominal = await Nominal.findOne({_id: id,})
             res.render('admin/nominal/edit', {
-                nominal
+                nominal,
+                active
             });
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)

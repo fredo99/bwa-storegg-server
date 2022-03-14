@@ -20,7 +20,8 @@ module.exports = {
     },
     viewCreate: async(req, res) =>{
         try {
-            res.render('admin/category/create');
+            const active = 'category'
+            res.render('admin/category/create', {active});
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
@@ -46,10 +47,12 @@ module.exports = {
     },
     viewEdit: async(req, res) =>{
         try {
+            const active = 'category'
             const {id} = req.params
             let category = await Category.findOne({_id: id,})
             res.render('admin/category/edit', {
-                category
+                category,
+                active
             });
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
