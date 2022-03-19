@@ -1,4 +1,5 @@
-const Category = require('./model');
+const Payment = require('./model');
+const Bank = require('../bank/model');
 module.exports = {
     index: async(req, res) =>{
         try {
@@ -6,98 +7,103 @@ module.exports = {
             const alertStatus = req.flash("alertStatus")
 
             const alert = {message: alertMessage, status: alertStatus}
-            const category = await Category.find()
-            const active = 'category'
-            res.render('admin/category/view_category',{
-                category,
+            const payment = await Payment.find().populate('banks')
+            const active = 'payment'
+            res.render('admin/payment/view_payment',{
+                payment,
                 alert,
                 active,
                 name: req.session.user.name,
-                title: 'Halaman Category'
+                title: 'Halaman Jenis Pembayaran'
             });
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
+            res.redirect('/payment')
         }
     },
     viewCreate: async(req, res) =>{
         try {
-            const active = 'category'
-            res.render('admin/category/create', {
-                active,
+            const banks = await Bank.find()
+            const active = 'payment'
+            res.render('admin/payment/create', {
+                active, 
+                banks,
                 name: req.session.user.name,
-                title: 'Halaman Tambah Category'
+                title: 'Halaman Tambah Jenis Pembayaran'
             });
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/category')
+            res.redirect('/payment')
         }
     },
     actionCreate: async (req, res) =>{
         try {
-            const {name} = req.body
+            const {banks, type} = req.body
 
-            let category = await Category({name})
-            await category.save();
+            let payment = await Payment({banks, type})
+            await payment.save();
 
-            req.flash('alertMessage', 'Berhasil tambah kategori')
+            req.flash('alertMessage', 'Berhasil Tambah Jenis pembayaran')
             req.flash('alertStatus', 'success')
 
-            res.redirect('/category')
+            res.redirect('/payment')
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/category')
+            res.redirect('/payment')
         }
     },
     viewEdit: async(req, res) =>{
         try {
-            const active = 'category'
+            const active = 'payment'
             const {id} = req.params
-            let category = await Category.findOne({_id: id,})
-            res.render('admin/category/edit', {
-                category,
+            let payment = await Payment.findOne({_id: id,}).populate('banks')
+            const banks = await Bank.find()
+            res.render('admin/payment/edit', {
+                payment,
                 active,
+                banks,
                 name: req.session.user.name,
-                title: 'Halaman Edit Category'
+                title: 'Halaman Edit Jenis Pembayaran'
             });
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/category')
+            res.redirect('/payment')
         }
     },
     actionEdit: async(req, res) =>{
         try {
             const {id} = req.params
-            const{name} = req.body
-            const category = await Category.findOneAndUpdate({
+            const {type, banks, status} = req.body
+            const payment = await Payment.findOneAndUpdate({
                 _id: id,
-            }, {name})
+            }, {type, banks, status})
             
-            req.flash('alertMessage', 'Berhasil Edit kategori')
+            req.flash('alertMessage', 'Berhasil Edit Jenis Pembayaran')
             req.flash('alertStatus', 'success')
 
-            res.redirect('/category')
+            res.redirect('/payment')
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/category')
+            res.redirect('/payment')
         }
     },
     actionDelete: async(req,res) =>{
         try {
             const {id} = req.params
-            const category = await Category.findOneAndDelete({_id: id})
+            const payment = await Payment.findOneAndDelete({_id: id})
             
-            req.flash('alertMessage', 'Berhasil Menghapus kategori')
+            req.flash('alertMessage', 'Berhasil Menghapus Jenis Pembayaran')
             req.flash('alertStatus', 'success')
-            res.redirect('/category')
+            res.redirect('/payment')
         } catch (err) {
             req.flash('alertMessage', `$(err.message)`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/category')
+            res.redirect('/payment')
         }
     }
 }

@@ -3,7 +3,9 @@ module.exports = {
         try {
             const active = 'dashboard';
             res.render('index', {
-                active
+                active,
+                name: req.session.user.name,
+                title: 'Halaman Dashboard'
             });
         } catch (err) {
             console.log(err);

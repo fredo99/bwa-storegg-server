@@ -62,12 +62,12 @@
             </a>
           </li>
           <li class="nav-header">Metode Pembayaran</li>
-          <li class="nav-item
-          <% if(active == 'bank'){ %>
-            active
-            <% } %>
+          <li class="nav-item">
+            <a href="/bank" class="nav-link
+            <% if(active == 'bank'){ %>
+              active
+              <% } %>
             ">
-            <a href="/bank" class="nav-link">
               <i class="nav-icon fas fa-money-check"></i>
               <p>
                 Bank
@@ -75,7 +75,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="/payment" class="nav-link
+            <% if(active == 'payment'){ %>
+              active
+              <% } %>
+            ">
               <i class="nav-icon fas fa-money-check-alt"></i>
               <p>
                 Jenis Pembayaran
