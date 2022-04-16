@@ -88,7 +88,11 @@
           </li>
           <li class="nav-header">Transaksi</li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="/transaction" class="nav-link
+            <% if(active == 'transaction'){ %>
+              active
+              <% } %>
+            ">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Transaksi
